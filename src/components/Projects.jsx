@@ -3,6 +3,7 @@ import FoodWasteImg from '../assets/FoodWaste.png';
 import CEMOS from '../assets/CEMOS.png';
 import StudyHubImg from '../assets/studyhub.png';
 import portfolioPreview from '../assets/portfolio-preview.png';
+import ChatView from '../assets/ChatView1.png';
 
 const projectsData = [
   {
@@ -26,18 +27,18 @@ const projectsData = [
     link: "https://github.com/Prabhat-kumar-Ahirwar/MyPortfolio.git",
     hoverColor: "pink-500/20",
   },
+  // {
+  //   title: "Car Rental System",
+  //   img: "https://via.placeholder.com/400x300",
+  //   description: "Full-stack car rental platform built with Spring Boot and React, emphasizing scalability and clean architecture.",
+  //   link: "https://github.com/Prabhat-kumar-Ahirwar/Car-Rental-Management.git",
+  //   hoverColor: "blue-500/20",
+  // },
   {
-    title: "Car Rental System",
-    img: "https://via.placeholder.com/400x300",
-    description: "Full-stack car rental platform built with Spring Boot and React, emphasizing scalability and clean architecture.",
-    link: "https://github.com/Prabhat-kumar-Ahirwar/Car-Rental-Management.git",
-    hoverColor: "blue-500/20",
-  },
-  {
-    title: "Career Counselling Platform",
-    img: "https://via.placeholder.com/400x300",
-    description: "A guidance system using ER diagrams and structured workflow design for student career support.",
-    link: "https://github.com/Prabhat-kumar-Ahirwar",
+    title: "Chating Group application",
+    img: ChatView,
+    description: "A chatting application built with Java Springboot and react , featuring real-time messaging and user-friendly interface.",
+    link: "https://github.com/Prabhat-kumar-Ahirwar/chat-app",
     hoverColor: "purple-500/20",
   },
   {
