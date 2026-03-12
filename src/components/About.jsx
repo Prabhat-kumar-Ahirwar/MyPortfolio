@@ -1,5 +1,5 @@
-// src/components/About.jsx
 import React from "react";
+import { motion } from "framer-motion"; // eslint-disable-line no-unused-vars
 
 const About = () => {
   const techStack = [
@@ -14,8 +14,9 @@ const About = () => {
   ];
 
   const quickStats = [
-    { value: "4+", label: "Projects" },
+    { value: "4+", label: "Projects Built" },
     { value: "5+", label: "Certifications" },
+    { value: "100%", label: "Dedication" },
   ];
 
   const featuredProjects = [
@@ -25,6 +26,7 @@ const About = () => {
       url: "prabhat.dev",
       description:
         "Personal portfolio showcasing experience, skills, and achievements.",
+      tech: ["React", "Tailwind", "Framer Motion"]
     },
     {
       title: "Study Hub",
@@ -32,111 +34,145 @@ const About = () => {
       url: "terminal.prabhat.dev",
       description:
         "A collaborative Study Hub platform designed for students to share, access, and organize study materials interactively.",
+      tech: ["Java", "Spring Boot", "React", "MySQL"]
     },
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15, delayChildren: 0.2 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } },
+  };
+
   return (
-    <>
-      {/* ABOUT SECTION */}
-      <section id="about" className="scroll-mt-24 mb-20 px-4 sm:px-6 md:px-8">
-        <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4 text-center md:text-left">
-          About Me
-        </h2>
-        <div className="w-16 h-1 bg-blue-400 rounded-full mb-6 mx-auto md:mx-0"></div>
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      className="space-y-24"
+    >
+      {/* HERO / ABOUT SECTION */}
+      <section id="about" className="scroll-mt-24 px-4 sm:px-6 md:px-8 mt-4">
+        <motion.div variants={itemVariants} className="inline-block mb-4">
+          <span className="bg-accent-primary/10 text-accent-primary border border-accent-primary/20 px-4 py-1.5 rounded-full text-sm font-mono shadow-[0_0_15px_rgba(99,102,241,0.2)]">
+            Hello, World! 👋
+          </span>
+        </motion.div>
+        
+        <motion.h2 variants={itemVariants} className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 leading-tight tracking-tight">
+          I'm <span className="text-gradient">Prabhat Kumar</span>,<br />
+          Building Scalable Backends.
+        </motion.h2>
 
-        <div className="text-gray-400 leading-relaxed space-y-5 text-sm sm:text-base max-w-3xl mx-auto md:mx-0">
+        <motion.div variants={itemVariants} className="w-20 h-1.5 bg-gradient-to-r from-accent-primary to-accent-secondary rounded-full mb-8 shadow-[0_0_10px_rgba(236,72,153,0.5)]"></motion.div>
+
+        <motion.div variants={itemVariants} className="text-gray-400 text-base sm:text-lg leading-relaxed space-y-6 max-w-3xl">
           <p>
-            I'm{" "}
-            <span
-              onClick={() => window.open("/src/assets/profile.JPG", "_blank")}
-              className="text-white font-semibold cursor-pointer hover:text-blue-400 transition-colors duration-300"
-            >
-              Prabhat Kumar Ahirwar
-            </span>
-            , a B.Tech Computer Science student focused on Java backend development and scalable system design.
+            A passionate Java Backend Developer and B.Tech Computer Science student. I specialize in designing and building robust, high-performance APIs and scalable system architectures.
           </p>
 
           <p>
-            I build backend applications using{" "}
-            <span className="text-white font-semibold">
-              Java, Spring Boot, REST APIs, JWT, and SQL
-            </span>
-            , emphasizing clean architecture and secure API development.
+            My expertise lies in core backend technologies including{" "}
+            <span className="text-gray-200 font-semibold border-b border-accent-secondary/50 pb-0.5">Java, Spring Boot, REST APIs, and SQL</span>, with a strong emphasis on clean code, secure authentication (JWT), and efficient database modeling.
           </p>
-
+          
           <p>
-            Motivated to contribute to impactful backend solutions in a professional engineering environment.
+            Driven by a constant desire to learn and solve complex engineering problems in collaborative, professional environments.
           </p>
-        </div>
+        </motion.div>
 
-        {/* TECH STACK */}
-        <div className="flex flex-wrap gap-3 mt-8 justify-center md:justify-start">
+        {/* TECH STACK CHIPS */}
+        <motion.div variants={itemVariants} className="flex flex-wrap gap-3 mt-10">
           {techStack.map((tech) => (
-            <span
+            <motion.span
               key={tech}
-              className="px-4 py-1.5 text-xs rounded-full bg-[#212123] border border-[#383838] text-gray-300"
+              whileHover={{ scale: 1.05, y: -2 }}
+              className="px-5 py-2 text-sm rounded-xl glass-card text-gray-200 font-medium cursor-pointer"
             >
               {tech}
-            </span>
+            </motion.span>
           ))}
-        </div>
+        </motion.div>
 
         {/* QUICK STATS */}
-        <h3 className="text-xl font-bold text-white mt-14 mb-6 flex items-center gap-2 justify-center md:justify-start">
-          <span className="text-blue-400">★</span> Quick Stats
-        </h3>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-3xl mx-auto md:mx-0">
+        <motion.div variants={itemVariants} className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-14">
           {quickStats.map((item) => (
-            <div
+            <motion.div
               key={item.label}
-              className="bg-[#212123] p-5 rounded-2xl border border-[#383838] hover:border-blue-500/40 transition text-center"
+              whileHover={{ y: -5 }}
+              className="glass p-6 rounded-2xl relative overflow-hidden group"
             >
-              <h4 className="text-3xl font-bold text-white mb-1">{item.value}</h4>
-              <p className="text-xs text-gray-500 uppercase">{item.label}</p>
-            </div>
+              <div className="absolute inset-0 bg-gradient-to-br from-accent-primary/5 to-accent-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <h4 className="text-4xl font-bold text-white mb-2 tracking-tight group-hover:text-accent-primary transition-colors">{item.value}</h4>
+              <p className="text-xs text-gray-400 uppercase tracking-widest font-semibold">{item.label}</p>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </section>
 
-      {/* FEATURED PORTFOLIOS */}
+      {/* FEATURED PROJECTS PREVIEW */}
       <section
         id="featured-portfolios"
-        className="mb-20 px-4 sm:px-6 md:px-8 max-w-6xl mx-auto"
+        className="px-4 sm:px-6 md:px-8 pb-10"
       >
-        <div className="mb-8 text-center md:text-left">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">
-            Featured Projects
+        <motion.div variants={itemVariants} className="mb-10">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3 tracking-tight">
+            Featured <span className="text-gradient">Work</span>
           </h2>
-          <p className="text-gray-400 text-sm">
-            A glimpse into my professional journey.
+          <p className="text-gray-400 text-base max-w-2xl">
+            A selection of my recent engineering projects.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+        <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {featuredProjects.map((project) => (
-            <div
+            <motion.div
               key={project.title}
-              className="bg-[#1e1e1f] rounded-2xl border border-[#2a2a2c] shadow-lg overflow-hidden transition-all duration-300 hover:shadow-blue-500/30 hover:border-blue-400/60 group"
+              whileHover={{ y: -8 }}
+              className="glass rounded-3xl overflow-hidden group border border-white/10 hover:border-accent-primary/30 transition-all duration-500"
             >
-              <div className="w-full aspect-video bg-[#18181a] overflow-hidden">
+              <div className="w-full h-56 sm:h-64 bg-dark-bg overflow-hidden relative">
+                <div className="absolute inset-0 bg-accent-primary/20 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+                {/* Fallback pattern if image is missing */}
+                <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#6366F1_1px,transparent_1px)] [background-size:20px_20px]"></div>
                 <img
                   src={project.img}
-                  alt={`${project.title} Preview`}
-                  className="w-full h-full object-cover transition group-hover:brightness-110"
+                  alt={`${project.title} Interface`}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 relative z-0"
                   style={{ objectPosition: "top" }}
+                  onError={(e) => {
+                    e.target.style.display = 'none'; // Hide broken images gracefully
+                  }}
                 />
               </div>
-              <div className="p-6">
-                <div className="text-xs text-gray-500 mb-1">{project.url}</div>
-                <h3 className="text-xl font-bold text-white mb-2">{project.title}</h3>
-                <p className="text-gray-300 text-sm">{project.description}</p>
+              <div className="p-8 relative">
+                <div className="absolute top-0 right-8 -translate-y-1/2 bg-dark-surface border border-white/10 px-4 py-1.5 rounded-full text-xs font-mono text-gray-400 shadow-xl group-hover:border-accent-primary/30 transition-colors">
+                  {project.url}
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-accent-primary transition-colors">{project.title}</h3>
+                <p className="text-gray-400 text-sm leading-relaxed mb-6">
+                  {project.description}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {project.tech.map(t => (
+                    <span key={t} className="text-xs font-mono text-accent-secondary bg-accent-secondary/10 px-2 py-1 rounded-md">
+                      {t}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </section>
-    </>
+    </motion.div>
   );
 };
 

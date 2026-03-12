@@ -1,4 +1,6 @@
 import React from 'react';
+import { motion } from 'framer-motion'; // eslint-disable-line no-unused-vars
+import { FaGithub, FaExternalLinkAlt, FaFolderOpen } from 'react-icons/fa';
 import FoodWasteImg from '../assets/FoodWaste.png';
 import CEMOS from '../assets/CEMOS.png';
 import StudyHubImg from '../assets/studyhub.png';
@@ -11,91 +13,153 @@ const projectsData = [
     img: CEMOS,
     description: "Smart campus solution for monitoring, maintaining, and optimizing electricity usage with real-time tracking and analytics.",
     link: "https://github.com/Priyanshikhorwal/CEMOS",
-    hoverColor: "green-500/20",
+    demo: null,
+    tech: ["React", "Spring Boot", "MySQL", "IoT Analytics"]
   },
   {
     title: "Study Hub",
     img: StudyHubImg,
     description: "Collaborative platform for students to share and access notes and study materials interactively.",
     link: "https://github.com/Prabhat-kumar-Ahirwar",
-    hoverColor: "yellow-500/20",
+    demo: "https://terminal.prabhat.dev",
+    tech: ["Java", "Spring Boot", "React", "REST API"]
   },
   {
     title: "Portfolio Website",
     img: portfolioPreview,
     description: "Personal portfolio showcasing skills, projects, and achievements built with React and Tailwind.",
     link: "https://github.com/Prabhat-kumar-Ahirwar/MyPortfolio.git",
-    hoverColor: "pink-500/20",
+    demo: "https://prabhat.dev",
+    tech: ["React", "Tailwind CSS", "Framer Motion"]
   },
-  // {
-  //   title: "Car Rental System",
-  //   img: "https://via.placeholder.com/400x300",
-  //   description: "Full-stack car rental platform built with Spring Boot and React, emphasizing scalability and clean architecture.",
-  //   link: "https://github.com/Prabhat-kumar-Ahirwar/Car-Rental-Management.git",
-  //   hoverColor: "blue-500/20",
-  // },
   {
     title: "Chating Group application",
     img: ChatView,
-    description: "A chatting application built with Java Springboot and react , featuring real-time messaging and user-friendly interface.",
+    description: "A chatting application built with Java Springboot and react, featuring real-time messaging and user-friendly interface.",
     link: "https://github.com/Prabhat-kumar-Ahirwar/chat-app",
-    hoverColor: "purple-500/20",
+    demo: null,
+    tech: ["Java Spring Boot", "WebSockets", "React", "Tailwind"]
   },
   {
     title: "Food Waste Management",
     img: FoodWasteImg,
     description: "Platform to track, reduce, and manage food waste in institutions, with analytics and donation coordination.",
     link: "https://www.figma.com/design/jpc0nYvnh4jlKOJoXluXpc/Untitled?node-id=0-1&t=QOSE9E742qQuf0CS-1",
-    hoverColor: "red-500/20",
+    demo: null,
+    tech: ["Figma", "UI/UX Design", "Prototyping"]
   },
 ];
 
 const Projects = () => {
-  return (
-    <section id="projects" className="mt-20 scroll-mt-24 mb-10 px-4 sm:px-6 md:px-8">
-      <div className="flex items-center gap-2 mb-4 sm:mb-6">
-        <span className="text-blue-400 text-xl">📂</span>
-        <h3 className="text-xl sm:text-2xl font-bold text-white">Featured Projects</h3>
-      </div>
-      <p className="text-gray-400 text-sm sm:text-base mb-8 max-w-3xl">
-        A glimpse into my development journey.
-      </p>
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15, delayChildren: 0.2 },
+    },
+  };
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } },
+  };
+
+  return (
+    <motion.section 
+      id="projects" 
+      className="scroll-mt-24 px-4 sm:px-6 md:px-8 pb-10 mt-6"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      <motion.div variants={itemVariants} className="mb-12">
+        <div className="flex items-center gap-3 mb-3">
+          <div className="p-2.5 bg-accent-primary/10 rounded-xl text-accent-primary">
+            <FaFolderOpen size={24} />
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+            Featured <span className="text-gradient">Projects</span>
+          </h2>
+        </div>
+        <p className="text-gray-400 text-base max-w-2xl ml-1">
+          A showcase of my technical projects, complete with source code and live demos.
+        </p>
+      </motion.div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {projectsData.map((project, idx) => (
-          <div
+          <motion.div
             key={idx}
-            className={`group bg-[#212123] border border-[#383838] rounded-2xl overflow-hidden flex flex-col hover:border-${project.hoverColor} transition-all duration-300`}
+            variants={itemVariants}
+            whileHover={{ y: -8 }}
+            className="group glass rounded-3xl overflow-hidden flex flex-col border border-white/5 hover:border-accent-primary/30 transition-all duration-500 shadow-xl"
           >
-            {/* Image */}
-            <div className="relative w-full aspect-[16/9]">
+            {/* Image Container */}
+            <div className="relative w-full h-56 sm:h-64 bg-dark-surface overflow-hidden">
+              <div className="absolute inset-0 bg-accent-primary/20 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+              {/* Fallback pattern */}
+              <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#6366f1_1px,transparent_1px)] [background-size:20px_20px]"></div>
               <img
                 src={project.img}
                 alt={project.title}
-                className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 relative z-0"
+                style={{ objectPosition: "top" }}
+                onError={(e) => { e.target.style.display = 'none'; }}
               />
-              <div
-                className={`absolute inset-0 bg-${project.hoverColor} opacity-10 group-hover:opacity-0 transition rounded-t-2xl`}
-              />
+              
+              {/* Hover overlay actions */}
+              <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 flex items-center justify-center gap-4 backdrop-blur-sm">
+                {project.link && (
+                  <motion.a
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-3 bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors"
+                    title="View Source Code"
+                  >
+                    <FaGithub size={22} />
+                  </motion.a>
+                )}
+                {project.demo && (
+                  <motion.a
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    href={project.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-3 bg-accent-primary text-white rounded-full shadow-lg shadow-accent-primary/30 hover:opacity-90 transition-opacity"
+                    title="Live Demo"
+                  >
+                    <FaExternalLinkAlt size={20} />
+                  </motion.a>
+                )}
+              </div>
             </div>
 
-            {/* Content */}
-            <div className="p-4 flex flex-col flex-1">
-              <h4 className="text-lg sm:text-xl font-bold text-white mb-2">{project.title}</h4>
-              <p className="text-sm sm:text-base text-gray-400 flex-1">{project.description}</p>
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 self-start px-4 py-2 bg-gray-900 text-blue-400 rounded-full text-xs sm:text-sm font-semibold shadow hover:bg-blue-600 hover:text-white transition-all"
-              >
-                &lt;/&gt; Code
-              </a>
+            {/* Content Container */}
+            <div className="p-6 sm:p-8 flex flex-col flex-1 relative bg-gradient-to-b from-transparent to-dark-surface/50">
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 group-hover:text-accent-primary transition-colors">
+                {project.title}
+              </h3>
+              <p className="text-sm sm:text-base text-gray-400 flex-1 leading-relaxed mb-6">
+                {project.description}
+              </p>
+              
+              {/* Tech Stack Chips */}
+              <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-white/5">
+                {project.tech.map(t => (
+                  <span key={t} className="text-xs font-mono font-medium text-accent-secondary bg-accent-secondary/10 px-2.5 py-1 rounded-md border border-accent-secondary/20">
+                    {t}
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
-    </section>
+    </motion.section>
   );
 };
 

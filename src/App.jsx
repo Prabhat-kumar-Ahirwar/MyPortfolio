@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion"; // eslint-disable-line no-unused-vars
 
 import Navbar from "./components/Navbar";
 import TopNav from "./components/TopNav";
@@ -11,20 +11,39 @@ import Projects from "./components/Projects";
 import Skills from "./components/Skills";
 import Contact from "./components/Contact";
 
+// Subtle animated background component with floating elements
+const BackgroundElements = () => (
+  <div className="fixed inset-0 z-[-1] overflow-hidden pointer-events-none bg-dark-bg">
+    {/* Large Blobs */}
+    <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-accent-primary/20 blur-[120px] animate-blob"></div>
+    <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-accent-secondary/20 blur-[120px] animate-blob animation-delay-2000"></div>
+    
+    {/* Small Floating Elements (Dots/Orbs) */}
+    <div className="absolute top-[20%] left-[15%] w-20 h-20 rounded-full bg-white/5 blur-[40px] animate-pulse"></div>
+    <div className="absolute top-[60%] left-[80%] w-32 h-32 rounded-full bg-accent-primary/10 blur-[60px] animate-blob animation-delay-4000"></div>
+    <div className="absolute bottom-[20%] left-[40%] w-24 h-24 rounded-full bg-white/5 blur-[50px] animate-pulse animation-delay-3000"></div>
+    
+    {/* Grid Overlay for texture */}
+    <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+  </div>
+);
+
 function App() {
   const location = useLocation();
 
   return (
-    <div className="min-h-screen bg-[#121212] flex justify-center items-center p-4 md:p-10">
-      <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-6">
+    <div className="min-h-screen bg-dark-bg text-gray-200 flex justify-center items-center p-4 md:p-10 relative">
+      <BackgroundElements />
+      
+      <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-6 lg:gap-10 relative z-10">
 
         {/* LEFT SIDEBAR */}
-        <aside className="h-fit lg:sticky lg:top-10">
+        <aside className="h-fit lg:sticky lg:top-10 z-20">
           <Navbar />
         </aside>
 
         {/* RIGHT CONTENT */}
-        <main className="bg-[#1e1e1f] rounded-3xl p-8 border border-[#383838] relative min-h-[80vh]">
+        <main className="glass rounded-[2rem] p-6 sm:p-8 lg:p-10 relative min-h-[80vh] flex flex-col">
           <TopNav />
 
           {/* PAGE ANIMATION */}
@@ -51,8 +70,10 @@ function App() {
           </AnimatePresence>
 
           {/* Footer */}
-          <footer className="mt-20 text-center text-gray-500 text-sm border-t border-gray-800 pt-6">
-            © 2026 Prabhat | All Rights Reserved | prabhatmmg007@gmail.com
+          <footer className="mt-auto pt-10 text-center text-gray-500 text-sm border-t border-white/5">
+            <p className="flex items-center justify-center gap-1">
+              © 2026 Prabhat
+            </p>
           </footer>
         </main>
 

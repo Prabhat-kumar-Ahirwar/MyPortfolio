@@ -1,164 +1,176 @@
 import React from "react";
+import { motion } from "framer-motion"; // eslint-disable-line no-unused-vars
+import { 
+  FaJava, FaLeaf, FaDatabase, FaServer, FaShieldAlt, 
+  FaTools, FaGithub, FaCogs, FaLightbulb, FaAward, FaVideo
+} from "react-icons/fa";
 
-const sectionClass =
-  "bg-[#212123] border border-[#383838] rounded-2xl p-6 mb-8";
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1, delayChildren: 0.1 },
+  },
+};
 
-const chipClass =
-  "px-4 py-2 rounded-full text-sm sm:text-base bg-[#1e1e1f] border border-[#383838] text-gray-300 hover:border-blue-400/50 transition";
+const itemVariants = {
+  hidden: { opacity: 0, scale: 0.95, y: 20 },
+  visible: { opacity: 1, scale: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } },
+};
+
+const SectionTitle = ({ title, icon: Icon }) => (
+  <h3 className="text-xl sm:text-2xl font-bold text-white mb-6 flex items-center gap-3">
+    {Icon && <Icon className="text-accent-primary" />}
+    {title}
+  </h3>
+);
+
+const GlassCard = ({ children, className = "" }) => (
+  <motion.div variants={itemVariants} className={`glass p-6 sm:p-8 rounded-3xl relative overflow-hidden group ${className}`}>
+    <div className="absolute inset-0 bg-gradient-to-br from-accent-primary/5 to-accent-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+    <div className="relative z-10">{children}</div>
+  </motion.div>
+);
+
+const SkillBadge = ({ skill, icon: Icon }) => (
+  <motion.div 
+    whileHover={{ y: -3, scale: 1.02 }}
+    className="flex items-center gap-2 px-4 py-2.5 rounded-xl glass-card text-gray-200 font-medium cursor-default border border-white/5 hover:border-accent-primary/30 transition-all shadow-sm shadow-black/20"
+  >
+    {Icon && <Icon className="text-accent-primary text-sm" />}
+    <span className="text-sm">{skill}</span>
+  </motion.div>
+);
 
 const Skills = () => {
+
   return (
-    <section id="skills" className="scroll-mt-24 px-4 sm:px-6 md:px-8">
+    <motion.section 
+      id="skills" 
+      className="scroll-mt-24 px-4 sm:px-6 md:px-8 space-y-12 pb-10 mt-4"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
       {/* HEADER */}
-      <h2 className="text-3xl sm:text-4xl font-bold text-white mb-10 flex items-center justify-center md:justify-start">
-        <span className="text-blue-400 mr-3"></span> Skills & Expertise
-      </h2>
+      <motion.div variants={itemVariants} className="mb-12">
+        <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3 tracking-tight">
+          Skills & <span className="text-gradient">Expertise</span>
+        </h2>
+        <p className="text-gray-400 text-base max-w-2xl">
+          The technologies and tools I use to build robust backend systems.
+        </p>
+      </motion.div>
 
       {/* TECHNICAL SKILLS */}
-      <div className={sectionClass}>
-        <h3 className="text-xl sm:text-2xl font-semibold text-white mb-4">
-          Technical Skills
-        </h3>
+      <GlassCard>
+        <SectionTitle title="Core Technologies" icon={FaServer} />
         <div className="flex flex-wrap gap-3">
-          {[
-            "Java",
-            "Spring Boot",
-            "Spring Security",
-            "RESTful APIs",
-            "JWT Authentication",
-            "Hibernate (JPA)",
-            "MySQL",
-          ].map((skill) => (
-            <span key={skill} className={chipClass}>
-              {skill}
-            </span>
-          ))}
+          <SkillBadge skill="Java" icon={FaJava} />
+          <SkillBadge skill="Spring Boot" icon={FaLeaf} />
+          <SkillBadge skill="Spring Security" icon={FaShieldAlt} />
+          <SkillBadge skill="RESTful APIs" icon={FaServer} />
+          <SkillBadge skill="JWT Auth" icon={FaShieldAlt} />
+          <SkillBadge skill="Hibernate (JPA)" icon={FaDatabase} />
+          <SkillBadge skill="MySQL" icon={FaDatabase} />
         </div>
-      </div>
+      </GlassCard>
 
-      {/* TOOLS & PLATFORMS */}
-      <div className={sectionClass}>
-        <h3 className="text-xl sm:text-2xl font-semibold text-white mb-4">
-          Tools & Platforms
-        </h3>
-        <div className="flex flex-wrap gap-3">
-          {["Postman", "Git & GitHub", "IntelliJ IDEA", "MySQL Workbench"].map(
-            (tool) => (
-              <span key={tool} className={chipClass}>
-                {tool}
-              </span>
-            )
-          )}
-        </div>
-      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+        {/* TOOLS & PLATFORMS */}
+        <GlassCard>
+          <SectionTitle title="Tools & Platforms" icon={FaTools} />
+          <div className="flex flex-wrap gap-3">
+            <SkillBadge skill="Git & GitHub" icon={FaGithub} />
+            <SkillBadge skill="Postman" icon={FaTools} />
+            <SkillBadge skill="IntelliJ IDEA" icon={FaCogs} />
+            <SkillBadge skill="MySQL Workbench" icon={FaDatabase} />
+          </div>
+        </GlassCard>
 
-      {/* SOFT SKILLS */}
-      <div className={sectionClass}>
-        <h3 className="text-xl sm:text-2xl font-semibold text-white mb-4">Soft Skills</h3>
-        <ul className="list-disc list-inside text-gray-400 space-y-2 text-sm sm:text-base">
-          <li>Strong communication and interpersonal skills</li>
-          <li>Adaptability and continuous learning mindset</li>
-          <li>Team collaboration and ownership</li>
-          <li>Analytical and problem-solving approach</li>
-        </ul>
+        {/* SOFT SKILLS */}
+        <GlassCard>
+          <SectionTitle title="Soft Skills" icon={FaLightbulb} />
+          <ul className="space-y-3">
+            {[
+              "Strong communication & interpersonal skills",
+              "Adaptability & continuous learning mindset",
+              "Team collaboration & ownership",
+              "Analytical & problem-solving approach"
+            ].map(skill => (
+              <li key={skill} className="flex items-start gap-3 text-gray-400 text-sm">
+                <span className="text-accent-primary mt-1">▹</span>
+                <span className="leading-tight">{skill}</span>
+              </li>
+            ))}
+          </ul>
+        </GlassCard>
       </div>
 
       {/* CERTIFICATIONS */}
-<div className={sectionClass}>
-  <h3 className="text-xl sm:text-2xl font-semibold text-white mb-4">
-    Certifications & Achievements
-  </h3>
-  <ul className="flex flex-wrap gap-3">
-    {[
-      "Database Management Certification",
-      "NPTEL Certification (IIT)",
-      "Participation in Hackathons",
-      "Volunteering Experience",
-    ].map((item) => (
-      <li key={item} className="mb-2"> {/* add margin-bottom for vertical spacing */}
-        <a
-          href="https://drive.google.com/drive/folders/1hupHkMuzoRumq94NRziCwmrEuBhsnb3W?usp=drive_link"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-[#212123] border border-[#383838] px-4 py-2 rounded-full text-blue-400 hover:text-white hover:bg-blue-500/20 text-sm sm:text-base font-medium transition"
-        >
-          {item}
-        </a>
-      </li>
-    ))}
-  </ul>
-</div>
-
-
-      {/* STRENGTHS */}
-      <div className={sectionClass}>
-        <h3 className="text-xl sm:text-2xl font-semibold text-white mb-4">Strengths</h3>
-        <ul className="list-disc list-inside text-gray-400 space-y-2 text-sm sm:text-base">
-          <li>Ability to multitask and prioritize effectively</li>
-          <li>Visionary thinking with attention to detail</li>
-          <li>Strong logical and analytical skills</li>
-        </ul>
-      </div>
-
-      {/* AREAS OF IMPROVEMENT */}
-      <div className={sectionClass}>
-        <h3 className="text-xl sm:text-2xl font-semibold text-white mb-4">
-          Areas of Improvement
-        </h3>
-        <ul className="list-disc list-inside text-gray-400 space-y-2 text-sm sm:text-base">
-          <li>Gaining deeper hands-on industry experience</li>
-          <li>Improving system design and scalability knowledge</li>
-        </ul>
-      </div>
-
-      {/* INTERESTS & HOBBIES */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Areas of Interest */}
-        <div className={sectionClass}>
-          <h3 className="text-xl sm:text-2xl font-semibold text-white mb-4">
-            Areas of Interest
-          </h3>
-          <div className="flex flex-wrap gap-3">
-            {[
-              "Backend Development",
-              "Database Management",
-              "REST API Design & Security",
-            ].map((interest) => (
-              <span key={interest} className={chipClass}>
-                {interest}
-              </span>
-            ))}
-          </div>
+      <GlassCard>
+        <SectionTitle title="Certifications & Achievements" icon={FaAward} />
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {[
+            { text: "Database Management Certification", link: "https://drive.google.com/drive/folders/1hupHkMuzoRumq94NRziCwmrEuBhsnb3W?usp=drive_link" },
+            { text: "NPTEL Certification (IIT)", link: "https://drive.google.com/drive/folders/1hupHkMuzoRumq94NRziCwmrEuBhsnb3W?usp=drive_link" },
+            { text: "Participation in Hackathons", link: null },
+            { text: "Volunteering Experience", link: null },
+          ].map((item, i) => (
+            item.link ? (
+              <a 
+                key={i} 
+                href={item.link} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 p-4 rounded-xl bg-dark-bg/50 border border-white/5 hover:border-accent-primary/30 group transition-all"
+              >
+                <div className="p-2 bg-accent-primary/10 rounded-lg text-accent-primary group-hover:scale-110 transition-transform">
+                  <FaAward />
+                </div>
+                <span className="text-sm font-medium text-gray-300 group-hover:text-white transition-colors">{item.text}</span>
+              </a>
+            ) : (
+              <div key={i} className="flex items-center gap-3 p-4 rounded-xl bg-dark-bg/50 border border-white/5">
+                <div className="p-2 bg-white/5 rounded-lg text-gray-400">
+                  <FaAward />
+                </div>
+                <span className="text-sm font-medium text-gray-400">{item.text}</span>
+              </div>
+            )
+          ))}
         </div>
+      </GlassCard>
 
-        {/* Hobbies */}
-        <div className={sectionClass}>
-          <h3 className="text-xl sm:text-2xl font-semibold text-white mb-2">Hobbies</h3>
-          <p className="text-xs sm:text-sm text-gray-400 mb-4">
-            Click on <span className="text-blue-400">Video Editing</span> to view my work
-          </p>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+        {/* AREAS OF INTEREST */}
+        <GlassCard>
+          <SectionTitle title="Focus Areas" icon={FaLightbulb} />
           <div className="flex flex-wrap gap-3">
-            {["Video Editing", "Visual Storytelling"].map((hobby) =>
-              hobby === "Video Editing" ? (
-                <a
-                  key={hobby}
-                  href="https://drive.google.com/drive/folders/1z8-TRNG1RAOZ9yj87A6N3jb4Cucu9rsL?usp=sharing"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`${chipClass} text-blue-400 hover:text-white hover:bg-blue-500/20 transition`}
-                >
-                  {hobby}
-                </a>
-              ) : (
-                <span key={hobby} className={chipClass}>
-                  {hobby}
-                </span>
-              )
-            )}
+            <SkillBadge skill="Backend Development" />
+            <SkillBadge skill="Database Management" />
+            <SkillBadge skill="REST API Design & Security" />
           </div>
-        </div>
+        </GlassCard>
+
+        {/* HOBBIES & INTERESTS */}
+        <GlassCard>
+          <SectionTitle title="Hobbies & Interests" icon={FaVideo} />
+          <p className="text-xs text-gray-500 mb-4 -mt-2">External links open in a new tab</p>
+          <div className="flex flex-wrap gap-3">
+            <a 
+              href="https://drive.google.com/drive/folders/1z8-TRNG1RAOZ9yj87A6N3jb4Cucu9rsL?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <SkillBadge skill="Video Editing (View Portfolio)" icon={FaVideo} className="border-accent-primary/50 text-accent-primary hover:bg-accent-primary/10" />
+            </a>
+            <SkillBadge skill="Visual Storytelling" />
+          </div>
+        </GlassCard>
       </div>
-    </section>
+
+    </motion.section>
   );
 };
 
